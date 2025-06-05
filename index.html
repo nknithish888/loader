@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civix - Construction Site Coming Soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, rgba(255,140,0,0.9), rgba(255,165,0,0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="construction" patternUnits="userSpaceOnUse" width="20" height="20"><rect width="20" height="20" fill="%23f4f4f4"/><rect x="0" y="0" width="10" height="10" fill="%23ffcc00"/><rect x="10" y="10" width="10" height="10" fill="%23ffcc00"/></pattern></defs><rect width="100" height="100" fill="url(%23construction)"/></svg>');
+            background-size: cover, 50px 50px;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg,
+                transparent 40%,
+                rgba(255,193,7,0.1) 50%,
+                transparent 60%);
+            animation: constructionStripes 3s linear infinite;
+        }
+
+        @keyframes constructionStripes {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+
+        .countdown-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            border: 3px solid #ff8c00;
+        }
+
+        .brand-logo {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff8c00;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        .brand-tagline {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .timer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .time-block {
+            background: linear-gradient(135deg, #ff8c00, #ff6b00);
+            color: white;
+            padding: 20px 15px;
+            border-radius: 15px;
+            min-width: 90px;
+            box-shadow: 0 8px 16px rgba(255, 140, 0, 0.3);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .time-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(255, 140, 0, 0.4);
+        }
+        
+        .time-value {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .time-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .date-display {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .completed {
+            color: #ff8c00;
+            font-size: 1.8rem;
+            font-weight: 900;
+            display: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .construction-icons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: rgba(255, 140, 0, 0.3);
+        }
+
+        .under-construction {
+            background: linear-gradient(45deg, #ffcc00, #ff8c00);
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            margin-top: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="construction-icons">🏗️</div>
+        <div class="brand-logo">CIVIX</div>
+        <div class="brand-tagline">Building Excellence, Constructing Dreams</div>
+        <h1>🚧 Site Under Construction 🚧</h1>
+        <div class="under-construction">Coming Soon</div>
+        <div class="date-display" id="end-date"></div>
+        
+        <div class="timer">
+            <div class="time-block">
+                <div class="time-value" id="days">14</div>
+                <div class="time-label">Days</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="hours">00</div>
+                <div class="time-label">Hours</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+        
+        <div class="date-display" id="current-date"></div>
+        <div class="completed" id="completed-message">🎉 CIVIX Construction Site is Now Live! 🎉</div>
+    </div>
+
+    <script>
+        // Set the end date (2 weeks from now)
+        const endDate = new Date();
+        endDate.setDate(endDate.getDate() + 14);
+        
+        // Display the end date
+        document.getElementById('end-date').textContent = `🏗️ Launch Date: ${endDate.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })} 🏗️`;
+        
+        function updateCountdown() {
+            const now = new Date();
+            
+            // Display current date
+            document.getElementById('current-date').textContent = `Today is: ${now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            })} - ${now.toLocaleTimeString()}`;
+            
+            const difference = endDate - now;
+            
+            if (difference <= 0) {
+                // Countdown completed
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.getElementById('completed-message').style.display = 'block';
+                return;
+            }
+            
+            // Calculate time remaining
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            // Update display
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Update immediately and then every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
