@@ -1,491 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Civix - Construction Site Coming Soon</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, rgba(255,140,0,0.9), rgba(255,165,0,0.8)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="construction" patternUnits="userSpaceOnUse" width="20" height="20"><rect width="20" height="20" fill="%23f4f4f4"/><rect x="0" y="0" width="10" height="10" fill="%23ffcc00"/><rect x="10" y="10" width="10" height="10" fill="%23ffcc00"/></pattern></defs><rect width="100" height="100" fill="url(%23construction)"/></svg>');
-            background-size: cover, 50px 50px;
-            color: #333;
-            position: relative;
-            overflow: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg,
-                transparent 40%,
-                rgba(255,193,7,0.1) 50%,
-                transparent 60%);
-            animation: constructionStripes 3s linear infinite;
-        }
-
-        @keyframes constructionStripes {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(100px); }
-        }
-
-        .countdown-container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            z-index: 1;
-            border: 3px solid #ff8c00;
-        }
-
-        .brand-logo {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #ff8c00;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: 2px;
-        }
-
-        .brand-tagline {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 700;
-        }
-        
-        .timer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .time-block {
-            background: linear-gradient(135deg, #ff8c00, #ff6b00);
-            color: white;
-            padding: 20px 15px;
-            border-radius: 15px;
-            min-width: 90px;
-            box-shadow: 0 8px 16px rgba(255, 140, 0, 0.3);
-            transform: translateY(0);
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .time-block:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(255, 140, 0, 0.4);
-        }
-        
-        .time-value {
-            font-size: 2.8rem;
-            font-weight: 900;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .time-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            margin-top: 8px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        
-        .date-display {
-            margin-top: 30px;
-            font-size: 1.1rem;
-            color: #666;
-            font-weight: 400;
-        }
-
-        .completed {
-            color: #ff8c00;
-            font-size: 1.8rem;
-            font-weight: 900;
-            display: none;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .construction-icons {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            color: rgba(255, 140, 0, 0.3);
-        }
-
-        .under-construction {
-            background: linear-gradient(45deg, #ffcc00, #ff8c00);
-            color: #333;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 700;
-            margin-top: 20px;
-            display: inline-block;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        /* Mobile Responsive Styles */
-        @media screen and (max-width: 480px) {
-            body {
-                padding: 10px;
-                background-size: cover, 30px 30px;
-            }
-
-            .countdown-container {
-                padding: 20px 15px;
-                margin: 10px;
-                width: calc(100% - 20px);
-                max-width: none;
-                border-radius: 15px;
-                border-width: 2px;
-            }
-
-            .brand-logo {
-                font-size: 2.5rem;
-                margin-bottom: 8px;
-                letter-spacing: 1px;
-            }
-
-            .brand-tagline {
-                font-size: 0.9rem;
-                margin-bottom: 20px;
-                padding: 0 10px;
-            }
-
-            h1 {
-                font-size: 1.6rem;
-                margin-bottom: 20px;
-                line-height: 1.3;
-            }
-
-            .timer {
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
-            }
-
-            .time-block {
-                min-width: 70px;
-                padding: 15px 10px;
-                border-radius: 12px;
-                flex: 1;
-                max-width: calc(50% - 5px);
-            }
-
-            .time-value {
-                font-size: 2rem;
-            }
-
-            .time-label {
-                font-size: 0.75rem;
-                margin-top: 5px;
-            }
-
-            .date-display {
-                font-size: 0.9rem;
-                margin-top: 20px;
-                padding: 0 5px;
-                line-height: 1.4;
-            }
-
-            .completed {
-                font-size: 1.4rem;
-                padding: 0 10px;
-            }
-
-            .construction-icons {
-                font-size: 1.5rem;
-                top: 15px;
-                right: 15px;
-            }
-
-            .under-construction {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-                margin-top: 15px;
-            }
-        }
-
-        /* Extra Small Mobile - 320px */
-        @media screen and (max-width: 320px) {
-            .countdown-container {
-                padding: 15px 10px;
-                margin: 5px;
-            }
-
-            .brand-logo {
-                font-size: 2.2rem;
-                margin-bottom: 5px;
-            }
-
-            .brand-tagline {
-                font-size: 0.8rem;
-                margin-bottom: 15px;
-            }
-
-            h1 {
-                font-size: 1.4rem;
-                margin-bottom: 15px;
-            }
-
-            .timer {
-                gap: 8px;
-            }
-
-            .time-block {
-                min-width: 60px;
-                padding: 12px 8px;
-                max-width: calc(50% - 4px);
-            }
-
-            .time-value {
-                font-size: 1.8rem;
-            }
-
-            .time-label {
-                font-size: 0.7rem;
-            }
-
-            .date-display {
-                font-size: 0.8rem;
-                margin-top: 15px;
-            }
-
-            .completed {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* Small Mobile - 375px */
-        @media screen and (min-width: 321px) and (max-width: 375px) {
-            .countdown-container {
-                padding: 18px 12px;
-            }
-
-            .brand-logo {
-                font-size: 2.3rem;
-            }
-
-            .brand-tagline {
-                font-size: 0.85rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .time-block {
-                min-width: 65px;
-                padding: 13px 9px;
-            }
-
-            .time-value {
-                font-size: 1.9rem;
-            }
-
-            .time-label {
-                font-size: 0.72rem;
-            }
-        }
-
-        /* Medium Mobile - 425px */
-        @media screen and (min-width: 376px) and (max-width: 425px) {
-            .countdown-container {
-                padding: 20px 15px;
-            }
-
-            .brand-logo {
-                font-size: 2.4rem;
-            }
-
-            .brand-tagline {
-                font-size: 0.9rem;
-            }
-
-            h1 {
-                font-size: 1.6rem;
-            }
-
-            .time-block {
-                min-width: 68px;
-                padding: 14px 10px;
-            }
-
-            .time-value {
-                font-size: 2rem;
-            }
-
-            .time-label {
-                font-size: 0.74rem;
-            }
-        }
-
-        /* Landscape orientation adjustments for mobile */
-        @media screen and (max-width: 480px) and (orientation: landscape) {
-            body {
-                padding: 5px;
-            }
-
-            .countdown-container {
-                padding: 15px;
-                margin: 5px;
-            }
-
-            .brand-logo {
-                font-size: 2rem;
-                margin-bottom: 5px;
-            }
-
-            .brand-tagline {
-                font-size: 0.8rem;
-                margin-bottom: 10px;
-            }
-
-            h1 {
-                font-size: 1.3rem;
-                margin-bottom: 15px;
-            }
-
-            .timer {
-                margin-top: 10px;
-            }
-
-            .time-block {
-                padding: 10px 8px;
-            }
-
-            .time-value {
-                font-size: 1.6rem;
-            }
-
-            .date-display {
-                margin-top: 15px;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Touch-friendly improvements */
-        @media screen and (max-width: 480px) {
-            .time-block:hover {
-                transform: none; /* Disable hover effects on mobile */
-            }
-
-            .time-block:active {
-                transform: scale(0.95);
-                transition: transform 0.1s ease;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="This premium domain is for sale. Get it before it's gone!">
+  <title>Domain For Sale - yourdomain.com</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 40px rgba(0,0,0,0.2);
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #00ffcc;
+    }
+    p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      color: #ddd;
+    }
+    .btn {
+      display: inline-block;
+      background: #00ffcc;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    .btn:hover {
+      background: #00ddb8;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
-    <div class="countdown-container">
-        <div class="construction-icons">🏗️</div>
-        <div class="brand-logo">CIVIX</div>
-        <div class="brand-tagline">Building Excellence, Constructing Dreams</div>
-        <h1>🚧 Site Under Construction 🚧</h1>
-        <div class="under-construction">Coming Soon</div>
-        <div class="date-display" id="end-date"></div>
-        
-        <div class="timer">
-            <div class="time-block">
-                <div class="time-value" id="days">14</div>
-                <div class="time-label">Days</div>
-            </div>
-            <div class="time-block">
-                <div class="time-value" id="hours">00</div>
-                <div class="time-label">Hours</div>
-            </div>
-            <div class="time-block">
-                <div class="time-value" id="minutes">00</div>
-                <div class="time-label">Minutes</div>
-            </div>
-            <div class="time-block">
-                <div class="time-value" id="seconds">00</div>
-                <div class="time-label">Seconds</div>
-            </div>
-        </div>
-        
-        <div class="date-display" id="current-date"></div>
-        <div class="completed" id="completed-message">🎉 CIVIX Construction Site is Now Live! 🎉</div>
-    </div>
-
-    <script>
-        // Set the end date (2 weeks from now)
-        const endDate = new Date();
-        endDate.setDate(endDate.getDate() + 14);
-        
-        // Display the end date
-        document.getElementById('end-date').textContent = `🏗️ Launch Date: ${endDate.toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        })} 🏗️`;
-        
-        function updateCountdown() {
-            const now = new Date();
-            
-            // Display current date
-            document.getElementById('current-date').textContent = `Today is: ${now.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            })} - ${now.toLocaleTimeString()}`;
-            
-            const difference = endDate - now;
-            
-            if (difference <= 0) {
-                // Countdown completed
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                document.getElementById('completed-message').style.display = 'block';
-                return;
-            }
-            
-            // Calculate time remaining
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-            
-            // Update display
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-        
-        // Update immediately and then every second
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
+  <div class="container">
+    <h1>civix.in</h1>
+    <p>This premium domain is now available for purchase.<br>Make it yours today and boost your online presence.</p>
+    <a href="mailto:domaindev.godaddyy@gmail.com?subject=Interest%20in%20Domain%20Purchase" class="btn">Contact to Buy</a>
+    <footer>
+      © 2025 Domain Owner. All rights reserved.
+    </footer>
+  </div>
 </body>
 </html>
